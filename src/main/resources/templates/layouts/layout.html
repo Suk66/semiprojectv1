@@ -28,8 +28,12 @@
 <!-- content-->
     <div class="container">
         <div class="content-wrapper mx-auto">
+            <!-- header ! -->
             <header th:replace="~{fragments/header::header}"></header>
+
+            <!-- navy ! -->
             <nav th:replace="~{fragments/nav::nav}"></nav>
+
             <!-- <img th:src="@{/image/spy.png}" alt="Spy Image" width="100">-->
                 <img th:src="@{/image/spy.png}" alt="Spy Image" width="500px" height="400px">
 
@@ -41,7 +45,7 @@
 
             </main>
 
-            <div th:replace="~{fragments/footer::footer}"></div>
+            <footer th:replace="~{fragments/footer::footer}"></footer>
         </div>
 
     </div>
@@ -52,5 +56,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<th:block layout:fragment="script"></th:block>
+
 </body>
 </html>
