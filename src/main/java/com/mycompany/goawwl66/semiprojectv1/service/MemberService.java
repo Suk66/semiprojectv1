@@ -31,7 +31,4 @@ public class MemberService {
         return result == 1; // 회원정보가 테이블 저장되었는지 여부에 따라 true, false 반환
 
     }
-
-
-
 }

@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"> <!--5-1 -->
+      layout:decorate="~{layouts/layout}">
+
+        <th:block layout:fragment="content">
+            <main id="content">
+                <h2>게시판</h2>
+            </main>
+        </th:block>
 
 
-
-    <main id="content" layout:fragment="content">
-        <h2>갤러리</h2>
-    </main>
 
 
 
