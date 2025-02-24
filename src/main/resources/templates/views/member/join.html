@@ -3,89 +3,190 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}"> <!--5-1 -->
 
+<head>
+    <style>
+        .error-message {
+            color:#dc3545;
+            font-size: 0.95em;
+            margin: 10px 0;
+            display: none;
+        }
+        #joinfrm{
+            width: 100%;
+            max-width:450px;
+            margin: 100px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+
+
+    </style>
+
+
+
+
+</head>
+
+
             <th:block layout:fragment="content">
             <main id="content">
 
-
-
-            </main>
-
-                <main id="content" layout:fragment="content">
                     <h2>회원가입</h2>
                     <form name="joinfrm" id="joinfrm" method="post">
 
-                        <div>
-                        <label for="userid">아이디</label>
-                        <input type="text" name="userid" id="userid">
+                        <div class="form-floating my-2">
+                            <input type="text" name="userid" id="userid" class="form-control"
+                                   placeholder="아이디" required minlength="6" maxlength="18">
+                            <label for="userid" class="form-label">아이디</label>
+
                         </div>
 
                         <div>
-                        <label for="password">비밀번호</label>
-                        <input type="password" name="password" id="password">
+
+                        <input type="password" name="password" id="password" class="form-control" placeholder="비밀번호" required minlength="6" maxlength="18">
+                            <label for="password" class="password">비밀번호</label>
                         </div>
 
-                        <div>
+                        <div class="form-floating my-2">
                         <label for="repassword">비밀번호 확인</label>
                         <input type="password" name="repassword" id="repassword"></div>
 
-                        <div>
+                        <div class="form-floating my-2">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="이름" required>
                         <label for="name">이름</label>
-                        <input type="text" name="name" id="name">
                         </div>
 
-                        <div>
+                        <div class="form-floating my-2">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="이메일" required>
                         <label for="email">이메일</label>
-                        <input type="text" name="email" id="email">
                         </div>
 
-                        <div>
+                        <div class="my-2 d-flex justify-content-center">
                             <img src="/image/captcha.png">
                         </div>
 
-                        <div>
-                            <button type="submit">입력완료</button>
-                            <button type="reset">다시작성</button>
-
+                        <div class="my-2 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-sharp fa-solid fa-file-signature"></i>입력완료</button>
+                            <button type="reset" class="btn btn-danger">
+                                <i class="fa-sharp fa-solid fa-eraser"></i>다시입력</button>
                         </div>
-
-
-
-
                     </form>
-
-
                 </main>
-                <!--</th:block> -->>
+            </th:block>
+
+
+                <th:block ????></th:block>
+
+
+<script src="/js/member.js"></script>
 
 
  <th:block layout:fragment="script">
+
     <script>
         const joinfrm = document.querySelector('#joinfrm');
 
-        <!-- 최신 버전 -->
-        joinfrm.addEventListener("submit", <!--function--> (e) => {
-        //  구버전.. function joinform() {
-            e.preventDefault(); // submit 버튼 기능 중지 했기 때문에.
+        // joinfrm.addEventListener("submit", (e) => {
+        //
+        //
+        //     if (joinfrm.userid.value === '') {
+        //         alert('아이디를 입력하세요 !!!');
+        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
+        //     } else if (joinfrm.password.value === '') {
+        //         alert('비밀번호를를 입력하세요 !!!');
+        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
+        //     } else if (joinfrm.name.value === '') {
+        //         alert('이름을 입력하세요 !!!');
+        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
+        //     } else if (joinfrm.email.value === '') {
+        //         alert('이메일를 입력하세요 !!!');
+        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
+        //     } else if (joinfrm.password.value !== joinfrm.repassword.value) {
+        //         alert('비밀번호가 서로 일치하지 않습니다.');
+        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
+        //     }
+        //
+        // });
 
-            if (joinfrm.userid.value === '') {
-                alert('아이디를 입력하세요 !!!');
-                return false;   // 다시 돌아가서 다시 작성하게 유도.
-            } else if (joinfrm.password.value === '') {
-                alert('비밀번호를를 입력하세요 !!!');
-                return false;   // 다시 돌아가서 다시 작성하게 유도.
-            } else if (joinfrm.name.value === '') {
-                alert('이름을 입력하세요 !!!');
-                return false;   // 다시 돌아가서 다시 작성하게 유도.
-            } else if (joinfrm.email.value === '') {
-                alert('이메일를 입력하세요 !!!');
-                return false;   // 다시 돌아가서 다시 작성하게 유도.
-            } else if (joinfrm.password.value !== joinfrm.repassword.value) {
-                alert('비밀번호가 서로 일치하지 않습니다.');
-                return false;   // 다시 돌아가서 다시 작성하게 유도.
-            }
 
-            joinfrm.submit();   // 회원정보를 정삭적으로 작성완료.
+        // </th:block>
+
+
+
+                const patterns = [
+                    /^[a-z][a-z0-9]{5, 17}$/,
+                    /^(?=/*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Z],
+                    /^(?=/*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Z],
+                    /^[가-힣]{2,5}|[a-zA-Z]{2,10}$/,
+                        /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]
+                ]
+
+
+
+            <!-- 최신 버전 -->
+            joinfrm.addEventListener("submit", <!--function--> (e) => {
+                //  구버전.. function joinform() {
+                e.preventDefault(); // submit 버튼 기능 중지 했기 때문에.
+
+                clearErrorMessages();
+
+                // 입력 요소 유효성 검사
+                let isValid = validInputs(joinfrm);
+
+                if (isValid) submitJoinfrm(joinfrm);
         });
+        // submit 전통적인 방식 모놀리스 개발 방식이기 때문에 확장성이 떨어짐 vs fetch 코드를 변경했을 때 변경 범위가 넓다는 얘기는 유지보수 범위가 좁아진다는 얘기.
+        // 소스 코드를 다른걸로 옮겼을 때 손이 많이 가냐 적게 가냐. 유지보수 용이성 차이.
+        // fetch  함수 쓰면 확장성이 적기 때문에.
+        // 지금 처럼 마이크로 서비스 방식 리액트 등등으로 사용 하려면
+        // 프런트 백엔드 분리하고 싶다.  리엑트 기반으로 개발 하고 싶다.
+
+
+        // submit vs fetch
+        // 폼 submit 방식:  페이지 새로고침 발생, 에러처리는 브라우저에 의존
+        // fetch 방식 : 비동기 처리 가능, 에러처리는 세밀하게 조절가능,
+        // 요청 데이터를 JSON 으로 전송 가능
+
+        // then , finally , catch (?)
+
+
+        // 프라미스 (promise)
+        // 자바스크립트에서 비동기 작업을 처리하기 위한 객체
+        // 주로 비동기 작업의 성공/실패를 관리하고 결과를 처리하는데 사용
+        // ES6에서 처음 도입 - 콜백 지옥 해결, 비동기처리 코드를 깔끔하게 작성
+
+        // async : 비동기 함수임을 선언 - 반환값은 프라미스임
+        // await : 비동기 함수의 처리 완료될때까지 기다렸다가 결과를 받아옴
+
+        const submitJoinfrm = (frm) => {       // 호이스팅
+            // 폼에 입력된 데이터를 formData 객체로 초기화.
+
+            const formData = new FormData(frm);
+
+            fetch('/member/join', { // 주소에 데이터를 싫어서 보냄.
+                method: 'POST',
+                body: formData
+            }).then(async response => {   // 회원가입완료시 + async 들어가는 부분 await 추가.
+                if (response.ok) {
+                alert('회원가입이 완료되었습니다!!');
+                location.href = '/member/login';
+                } else if (response.status === 400) {
+                    alert(await response.text());
+                } else {    // 회원가입이 실패했다면
+                    alert('회원가입에 실패했습니다!! 다시 시도해 주세요');
+                }
+            }).catch(error => {
+                console.error('join error:', error);
+                alert('서버와 통신중 오류가 발생했습니다!! 관리자에게 문의하세요!');
+            });
+        }
+
     </script>
-</th:block>
+ </th:block>
 </html>
+
+
+

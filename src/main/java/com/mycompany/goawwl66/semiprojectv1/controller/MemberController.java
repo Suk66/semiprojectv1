@@ -4,6 +4,7 @@ import com.mycompany.goawwl66.semiprojectv1.domain.MemberDTO;
 import com.mycompany.goawwl66.semiprojectv1.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,15 +23,31 @@ public class MemberController {
         return "views/member/join";
     }
 
+    // ResponseEntity는 스프링에서 HTTP와 관련된 기능을 구현할 때 사용
+    // 이것을 활용하면 Used
+    // 상태코드, HTTP헤더, HTTP본문등을 명시적으로 설정 가능
     @PostMapping("/join")
-    public String joinOk(MemberDTO member) {
-        String returnPage = "redirect:/member/error";
-        log.info("submit된 회원 정보 : {}", member);
-        // If
-        if (memberService.newMember(member))
-            return "redirect:/member/login";
+    public ResponseEntity<?> joinOk(MemberDTO member) {
+        // 회원 가입 처리시
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
 
-        return returnPage;
+        log.info("submit된 회원 정보 : {}", member);
+
+        try {
+            // 정상 처리시 상태코드 200으로 응답
+            memberService.newMember(member);
+                response = ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            // 비정상 처리시 상태코드 400으로 응답 - 클라이언트 잘못
+            // 중복 아이디나 중복 이메일 사용시
+            response = ResponseEntity.badRequest().body(e.getMessage());
+            e.printStackTrace();
+        }catch (Exception e) {
+            // 비정상 처리시 상태코드 500으로 응답 - 서버 잘못
+            e.printStackTrace();
+        }
+
+        return response;
     }
 
     @GetMapping("/myinfo")
