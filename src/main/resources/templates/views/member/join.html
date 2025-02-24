@@ -161,7 +161,15 @@
         // async : 비동기 함수임을 선언 - 반환값은 프라미스임
         // await : 비동기 함수의 처리 완료될때까지 기다렸다가 결과를 받아옴
 
-        const submitJoinfrm = (frm) => {       // 호이스팅
+        const submitJoinfrm = async (frm) => {
+            // 호이스팅
+            // 여기에서 member.js로 보냄 해싱 관련.
+            // Web Crypto API로 비밀번호 암호화
+            frm.password.value = await hashPassword(frm.password.value);
+            console.log(frm.password.value)
+
+
+
             // 폼에 입력된 데이터를 formData 객체로 초기화.
 
             const formData = new FormData(frm);
