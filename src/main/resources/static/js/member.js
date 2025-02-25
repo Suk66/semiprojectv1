@@ -13,14 +13,17 @@ const patterns = [
     /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/
 ];
 
-
 function clearErrorMessages() {      // let isValid = true; 밑에 들어감
 document.querySelectorAll(".error-message")
     .forEach(error => error.textContent = '');
-
 }
-
     // 입력 요소 유효성 검사 기능을 모듈로 분리.
+const loginMessages = [
+    '아이디를 올바르게 입력하세요',
+    '비밀번호를 입력하세요'
+];
+
+
 
 const validInputs = (form) => {
     let isValid = true;
@@ -34,17 +37,13 @@ const validInputs = (form) => {
         }
     });
 
-
     // 비밀번호일치 여부 검사
     if (inputs[1].value !==inputs[2].value) {
         displayErrorMessages(inputs[2], ErrorMessages[2])
         isValid = false;
     }
-
     return isValid;
-
 }
-
 
 // 오류메세지 출력
 const displayErrorMessages = (input, message) => {
@@ -73,8 +72,86 @@ const hashPassword = async (password) => {
     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // 16진수 문자열로 변환
 
     return hashHex;
-
 }
+
+
+// 로그인 폼 유효성 검사
+const validLogin = (form) => {
+    let isValid = true;
+
+    // 로그인 폼안의 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach((input, idx) => {        //input 요소를 하나씩 검사
+        if (!input.checkValidity()) {       // html5 태그를 이용한 유효성 검사
+            displayErrorMessages(input, loginMessages[idx]);    // 위에 작성해둠.
+            isValid = false;
+        }
+    });
+
+    // // 비밀번호일치 여부 검사  여기는 필요없음.
+    // if (inputs[1].value !==inputs[2].value) {
+    //     displayErrorMessages(inputs[2], ErrorMessages[2])
+    //     isValid = false;
+    // }
+    return isValid;
+}
+
+const submitJoinfrm = async (frm) => {
+    // 호이스팅
+    // 여기에서 member.js로 보냄 해싱 관련.
+    // Web Crypto API로 비밀번호 암호화
+    frm.password.value = await hashPassword(frm.password.value);
+    console.log(frm.password.value)
+
+
+    // 폼에 입력된 데이터를 formData 객체로 초기화.
+    const formData = new FormData(frm);
+
+    fetch('/member/join', { // 주소에 데이터를 싫어서 보냄.
+        method: 'POST',
+        body: formData
+    }).then(async response => {   // 회원가입완료시 + async 들어가는 부분 await 추가.
+        if (response.ok) {
+            alert('회원가입이 완료되었습니다!!');
+            location.href = '/member/login';
+        } else if (response.status === 400) {
+            alert(await response.text());
+        } else {    // 회원가입이 실패했다면
+            alert('회원가입에 실패했습니다!! 다시 시도해 주세요');
+        }
+    }).catch(error => {
+        console.error('join error:', error);
+        alert('서버와 통신중 오류가 발생했습니다!! 관리자에게 문의하세요!');
+    });
+}   // submitJoinFrm
+
+// 로그인 폼 제출
+const submitLoginfrm = async (frm) => {
+    // 호이스팅
+    // 여기에서 member.js로 보냄 해싱 관련.
+    // Web Crypto API로 비밀번호 암호화
+    frm.password.value = await hashPassword(frm.password.value);
+
+    // 폼에 입력된 데이터를 formData 객체로 초기화.
+    const formData = new FormData(frm);
+
+    fetch('/member/login', { // 주소에 데이터를 싫어서 보냄.
+        method: 'POST',
+        body: formData
+    }).then(async response => {   // 로그인완료시 + async 들어가는 부분 await 추가.
+        if (response.ok) {
+            alert('로그인이 완료되었습니다!!');
+            location.href = '/member/myinfo';      // 로그인완료시 myinfo 페이지로
+        } else if (response.status === 400) {
+            alert(await response.text());
+        } else {    // 로그인이 실패했다면
+            alert('로그인에 실패했습니다!! 다시 시도해 주세요');
+        }
+    }).catch(error => {
+        console.error('join error:', error);
+        alert('서버와 통신중 오류가 발생했습니다!! 관리자에게 문의하세요!');
+    });
+}   // submitLoginFrm
 
 
 

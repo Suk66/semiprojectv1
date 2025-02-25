@@ -19,13 +19,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 8px;
         }
-
-
-
     </style>
-
-
-
 
 </head>
 
@@ -34,7 +28,7 @@
             <main id="content">
 
                     <h2>회원가입</h2>
-                    <form name="joinfrm" id="joinfrm" method="post">
+                    <form name="joinfrm" id="joinfrm" method="post" novalidate>
 
                         <div class="form-floating my-2">
                             <input type="text" name="userid" id="userid" class="form-control"
@@ -43,10 +37,10 @@
 
                         </div>
 
-                        <div>
-
+                        <div class="form-floating" my-2>
                         <input type="password" name="password" id="password" class="form-control" placeholder="비밀번호" required minlength="6" maxlength="18">
                             <label for="password" class="password">비밀번호</label>
+
                         </div>
 
                         <div class="form-floating my-2">
@@ -77,67 +71,24 @@
                 </main>
             </th:block>
 
+            <!--        조인 폼과 로그인 폼 방식이 다름 -->
+            <th:block layout:fragment="script">
+                <script src="/js/member.js"></script>
+                 <script>
+                    const joinfrm = document.querySelector('#joinfrm');
 
-                <th:block ????></th:block>
+                        <!-- 최신 버전 -->
+                        joinfrm.addEventListener("submit", <!--function--> (e) => {
+                            //  구버전.. function joinform() {
+                            e.preventDefault(); // submit 버튼 기능 중지 했기 때문에.
 
+                            clearErrorMessages();
 
-<script src="/js/member.js"></script>
+                            // 입력 요소 유효성 검사
+                            let isValid = validInputs(joinfrm);
 
-
- <th:block layout:fragment="script">
-
-    <script>
-        const joinfrm = document.querySelector('#joinfrm');
-
-        // joinfrm.addEventListener("submit", (e) => {
-        //
-        //
-        //     if (joinfrm.userid.value === '') {
-        //         alert('아이디를 입력하세요 !!!');
-        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
-        //     } else if (joinfrm.password.value === '') {
-        //         alert('비밀번호를를 입력하세요 !!!');
-        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
-        //     } else if (joinfrm.name.value === '') {
-        //         alert('이름을 입력하세요 !!!');
-        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
-        //     } else if (joinfrm.email.value === '') {
-        //         alert('이메일를 입력하세요 !!!');
-        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
-        //     } else if (joinfrm.password.value !== joinfrm.repassword.value) {
-        //         alert('비밀번호가 서로 일치하지 않습니다.');
-        //         return false;   // 다시 돌아가서 다시 작성하게 유도.
-        //     }
-        //
-        // });
-
-
-        // </th:block>
-
-
-
-                const patterns = [
-                    /^[a-z][a-z0-9]{5, 17}$/,
-                    /^(?=/*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Z],
-                    /^(?=/*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Z],
-                    /^[가-힣]{2,5}|[a-zA-Z]{2,10}$/,
-                        /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]
-                ]
-
-
-
-            <!-- 최신 버전 -->
-            joinfrm.addEventListener("submit", <!--function--> (e) => {
-                //  구버전.. function joinform() {
-                e.preventDefault(); // submit 버튼 기능 중지 했기 때문에.
-
-                clearErrorMessages();
-
-                // 입력 요소 유효성 검사
-                let isValid = validInputs(joinfrm);
-
-                if (isValid) submitJoinfrm(joinfrm);
-        });
+                            if (isValid) submitJoinfrm(joinfrm);
+                    });
         // submit 전통적인 방식 모놀리스 개발 방식이기 때문에 확장성이 떨어짐 vs fetch 코드를 변경했을 때 변경 범위가 넓다는 얘기는 유지보수 범위가 좁아진다는 얘기.
         // 소스 코드를 다른걸로 옮겼을 때 손이 많이 가냐 적게 가냐. 유지보수 용이성 차이.
         // fetch  함수 쓰면 확장성이 적기 때문에.
@@ -171,7 +122,6 @@
 
 
             // 폼에 입력된 데이터를 formData 객체로 초기화.
-
             const formData = new FormData(frm);
 
             fetch('/member/join', { // 주소에 데이터를 싫어서 보냄.
