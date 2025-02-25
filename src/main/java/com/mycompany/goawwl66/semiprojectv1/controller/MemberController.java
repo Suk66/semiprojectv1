@@ -1,5 +1,6 @@
 package com.mycompany.goawwl66.semiprojectv1.controller;
 
+import com.mycompany.goawwl66.semiprojectv1.domain.Member;
 import com.mycompany.goawwl66.semiprojectv1.domain.MemberDTO;
 import com.mycompany.goawwl66.semiprojectv1.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -40,6 +43,33 @@ public class MemberController {
         } catch (IllegalStateException e) {
             // 비정상 처리시 상태코드 400으로 응답 - 클라이언트 잘못
             // 중복 아이디나 중복 이메일 사용시
+            response = ResponseEntity.badRequest().body(e.getMessage());
+            e.printStackTrace();
+        }catch (Exception e) {
+            // 비정상 처리시 상태코드 500으로 응답 - 서버 잘못
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginOk(MemberDTO member, HttpSession session) {
+        // 회원 가입 처리시
+        ResponseEntity<?> response = ResponseEntity.internalServerError().build();
+
+        log.info("submit된 회원 정보 : {}", member);
+
+        try {
+            // 정상 처리시 상태코드 200으로 응답
+            Member loginUser = memberService.loginMember(member);
+            session.setAttribute("loginUser", loginUser);
+            session.setMaxInactiveInterval(600);     // 세션 유지시간 10min
+
+            response = ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            // 비정상 처리시 상태코드 400으로 응답 - 클라이언트 잘못
+            // 아이디나 비번 잘못 입력시
             response = ResponseEntity.badRequest().body(e.getMessage());
             e.printStackTrace();
         }catch (Exception e) {
