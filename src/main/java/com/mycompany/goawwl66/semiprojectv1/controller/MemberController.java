@@ -79,10 +79,17 @@ public class MemberController {
 
         return response;
     }
-
+    // 2월 25일 11시 24분 modify
     @GetMapping("/myinfo")
-    public String myinfo() {
-        return "views/member/myinfo";
+    public String myinfo(HttpSession session) {
+        // 로그인에서 myinfo 로 보내는 session
+        String returnUrl = "views/member/loin";
+
+        // 세션변수가 생성되어 있다면 myinfo로 이동
+        if (session.getAttribute("loginUser") != null) {
+            returnUrl = "views/member/myinfo";
+        }
+        return returnUrl;
     }
 
     @GetMapping("/login")
@@ -90,4 +97,12 @@ public class MemberController {
 
         return "views/member/login";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();   // 세션 제거
+        return "redirect:/";
+    }
+
+
 }

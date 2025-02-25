@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"> <!--5-1 -->
+      layout:decorate="~{layouts/layout}">
 
 <head>
     <style>
@@ -9,10 +9,9 @@
             color:#dc3545;
             font-size: 0.95em;
             margin: 10px 0;
-            display: none;
+            /*display: none;*/
         }
         #joinfrm{
-            width: 100%;
             max-width:450px;
             margin: 100px auto;
             padding: 20px;
@@ -22,11 +21,8 @@
     </style>
 
 </head>
-
-
             <th:block layout:fragment="content">
             <main id="content">
-
                     <h2>회원가입</h2>
                     <form name="joinfrm" id="joinfrm" method="post" novalidate>
 
@@ -39,29 +35,28 @@
 
                         <div class="form-floating" my-2>
                         <input type="password" name="password" id="password" class="form-control" placeholder="비밀번호" required minlength="6" maxlength="18">
-                            <label for="password" class="password">비밀번호</label>
-
+                            <label for="password" class="form-label">비밀번호</label>
                         </div>
 
                         <div class="form-floating my-2">
-                        <label for="repassword">비밀번호 확인</label>
-                        <input type="password" name="repassword" id="repassword"></div>
+                        <input type="password" name="repassword" id="repassword" class="form-control" placeholder="비밀번호 확인" required minlength="6" maxlength="18"></div>
+                        <label for="repassword" class="form-label">비밀번호 확인</label>
 
                         <div class="form-floating my-2">
                             <input type="text" name="name" id="name" class="form-control" placeholder="이름" required>
-                        <label for="name">이름</label>
+                        <label for="name" class="form-label">이름</label>
                         </div>
 
                         <div class="form-floating my-2">
                             <input type="email" name="email" id="email" class="form-control" placeholder="이메일" required>
-                        <label for="email">이메일</label>
+                        <label for="email" class="form-label">이메일</label>
                         </div>
 
                         <div class="my-2 d-flex justify-content-center">
                             <img src="/image/captcha.png">
                         </div>
 
-                        <div class="my-2 d-flex justify-content-center">
+                        <div class="my-2 d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa-sharp fa-solid fa-file-signature"></i>입력완료</button>
                             <button type="reset" class="btn btn-danger">

@@ -73,29 +73,6 @@ const hashPassword = async (password) => {
 
     return hashHex;
 }
-
-
-// 로그인 폼 유효성 검사
-const validLogin = (form) => {
-    let isValid = true;
-
-    // 로그인 폼안의 모든 input 요소 수집
-    const inputs = form.querySelectorAll('input');
-    inputs.forEach((input, idx) => {        //input 요소를 하나씩 검사
-        if (!input.checkValidity()) {       // html5 태그를 이용한 유효성 검사
-            displayErrorMessages(input, loginMessages[idx]);    // 위에 작성해둠.
-            isValid = false;
-        }
-    });
-
-    // // 비밀번호일치 여부 검사  여기는 필요없음.
-    // if (inputs[1].value !==inputs[2].value) {
-    //     displayErrorMessages(inputs[2], ErrorMessages[2])
-    //     isValid = false;
-    // }
-    return isValid;
-}
-
 const submitJoinfrm = async (frm) => {
     // 호이스팅
     // 여기에서 member.js로 보냄 해싱 관련.
@@ -124,6 +101,31 @@ const submitJoinfrm = async (frm) => {
         alert('서버와 통신중 오류가 발생했습니다!! 관리자에게 문의하세요!');
     });
 }   // submitJoinFrm
+
+
+
+// 로그인 폼 유효성 검사
+const validLogin = (form) => {
+    let isValid = true;
+
+    // 로그인 폼안의 모든 input 요소 수집
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach((input, idx) => {        //input 요소를 하나씩 검사
+        if (!input.checkValidity()) {       // html5 태그를 이용한 유효성 검사
+            displayErrorMessages(input, loginMessages[idx]);    // 위에 작성해둠.
+            isValid = false;
+        }
+    });
+
+    // // 비밀번호일치 여부 검사  여기는 필요없음.
+    // if (inputs[1].value !==inputs[2].value) {
+    //     displayErrorMessages(inputs[2], ErrorMessages[2])
+    //     isValid = false;
+    // }
+    return isValid;
+}
+
+
 
 // 로그인 폼 제출
 const submitLoginfrm = async (frm) => {

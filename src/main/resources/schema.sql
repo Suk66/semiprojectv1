@@ -1,4 +1,5 @@
-create table members(
+-- 테이블이 존재하지 않으면 만들어
+create table if not exists members(
     mno int auto_increment primary key,
     userid varchar(18) unique not null,
     password varchar(64) not null,
