@@ -19,7 +19,7 @@ public class MemberServiceTest {
 
     public void newMemberTest() {
         // Given
-        MemberDTO dto = MemberDTO.builder().userid("abc1234").password("987xyz").name("abc").email("abc@gmail.com").build();
+        MemberDTO dto = MemberDTO.builder().userid("abc1234").passwd("987xyz").name("abc").email("abc@gmail.com").build();
 
         // When
         boolean result = memberService.newMember(dto);

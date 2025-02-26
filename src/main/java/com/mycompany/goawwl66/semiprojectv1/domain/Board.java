@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class Member {
-    private int nmo;
+public class Board {
+    private int bno;
+    private String title;
     private String userid;
-    private String passwd;
-    private String name;
-    private String email;
     private LocalDateTime regdate;
-
+    private String thumbs;
+    private String views;
+    private String contents;
 }

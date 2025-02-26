@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface MemberRepository {
-    @Insert("insert into members (userid, password, name, email) values (#{userid}, #{password}, #{name}, #{email})")
+    @Insert("insert into members (userid, passwd, name, email) values (#{userid}, #{passwd}, #{name}, #{email})")
     int insertMember(MemberDTO member);
 
     @Select("select * from members where userid=#{userid}")

@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestConstructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@MybatisTest
+@SpringBootTest
 @RequiredArgsConstructor
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)   // 생성자 주입시 반드시 필요한 코드.
 public class MemberMapperTest {
@@ -23,7 +23,7 @@ public class MemberMapperTest {
     @DisplayName("MemberMapper Insert test")
     public void insertTest() {
         // GIVEN 테스트할 데이터 제공
-        MemberDTO dto = MemberDTO.builder().userid("abc1234").password("987xyz").name("abc").email("abc@gmail.com").build();
+        MemberDTO dto = MemberDTO.builder().userid("abc1234").passwd("987xyz").name("abc").email("abc@gmail.com").build();
 
         // WHEN : 데이터로 테스트할 기능 호출
         int result = memberMapper.insertMember(dto);
