@@ -22,8 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class MemberControllerTest {
 
-   private MockMvc mockMvc;
-    private MemberRepository memberRepository;
+    private final MockMvc mockMvc;
+    private final MemberRepository memberRepository;
+
     @Test
     @DisplayName("/join POST request test")
     public void joinOk() throws Exception {

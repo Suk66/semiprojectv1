@@ -25,8 +25,9 @@ public class BoardServiceTest {
     @DisplayName("BoardService readall test")
     public void readAllTest() {
         // Given
+        int cpg = 1;    // 1페이지 분량을 읽어옴
         // When
-        List<BoardDTO> results = boardService.readBoard();
+        List<BoardDTO> results = boardService.readBoard(cpg);
 
         // Then
         assertNotNull(results);

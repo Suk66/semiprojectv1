@@ -1,6 +1,6 @@
 package com.mycompany.goawwl66.semiprojectv1.board;
 
-import com.mycompany.goawwl66.semiprojectv1.repository.MemberRepository;
+import com.mycompany.goawwl66.semiprojectv1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,17 +22,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class BoardControllerTest {
 
-   private MockMvc mockMvc;
-    private MemberRepository memberRepository;
+   private final MockMvc mockMvc;
+    private final BoardRepository boardMapper;
+
     @Test
     @DisplayName("/list Get request test")
     public void list() throws Exception {
         // Given
-
+        String cpg = "1";   // 출력할 페이지 지정
 
         // When
-        mockMvc.perform(get("/board/list"))
-
+        mockMvc.perform(get("/board/list")
+                .param("cpg", cpg))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

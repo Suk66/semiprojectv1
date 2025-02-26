@@ -27,8 +27,9 @@ public class BoardMapperTest {
     @DisplayName("MemberMapper select test")
     void selectTest() {
         // GIVEN 테스트할 데이터 제공
+        int stnum = 0;  // 조회할 시작위치
 
-        List<BoardDTO> results = boardMapper.selectBoard();
+        List<BoardDTO> results = boardMapper.selectBoard(stnum);
 
         // Then : 호출되고 난 후 결과값 확인
         log.info("result : {}", results);

@@ -14,5 +14,4 @@ public class BoardDTO {
     private LocalDateTime regdate;
     private String thumbs;
     private String views;
-    private String contents;
 }
