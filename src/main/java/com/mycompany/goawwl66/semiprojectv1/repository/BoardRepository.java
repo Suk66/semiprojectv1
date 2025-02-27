@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BoardRepository {
@@ -13,4 +14,7 @@ public interface BoardRepository {
 
     @Select("select ceil(count(bno) / #{pageSize}) from boards")
     int countPagesBoard(int pageSize);
+
+//    List<BoardDTO> selectFindBoard(int stnum, int pageSize, String findtype, String findkey);
+    List<BoardDTO> selectFindBoard(Map<String, Object> params);
 }

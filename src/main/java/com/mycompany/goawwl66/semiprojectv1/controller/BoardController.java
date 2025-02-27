@@ -17,6 +17,12 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    @GetMapping("/find")
+    public String find(Model m, String findtype, String findkey, @RequestParam(defaultValue = "1") int cpg) {
+
+        return "views/board/list";
+    }
+
     @GetMapping("/list")
     public String list(Model m, @RequestParam(defaultValue = "1") int cpg) {
         // RequestParam에 defaultValue를 이용하면
